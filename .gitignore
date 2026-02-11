@@ -1,0 +1,11 @@
+.env
+.env.local
+bin/
+vendor/
+*.exe
+*.test
+*.out
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
