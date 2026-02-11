@@ -1,0 +1,100 @@
+
+<!-- Page HTML: modèle pour la carte de géolocalisation des concerts -->
+<!DOCTYPE html>
+<!-- Racine du document, langue française pour accessibilité et SEO -->
+<html lang="fr">
+<head>
+	<!-- Encodage UTF-8 pour supporter tous les caractères -->
+	<meta charset="utf-8" />
+	<!-- Meta responsive: adapte la mise en page au viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- Titre de la page affiché dans l'onglet du navigateur -->
+	<title>Géolocalisation — Groupie Tracker</title>
+	<!-- Description courte pour moteurs de recherche et partage social -->
+	<meta name="description" content="Découvrez où jouent vos artistes préférés en temps réel sur notre carte interactive." />
+	<!-- Import des polices Inter et Merriweather via Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+	<!-- Feuille de style globale du site (thème, layout) -->
+	<link rel="stylesheet" href="/static/css/style.css" />
+	<!-- Styles spécifiques à la page de géolocalisation -->
+	<link rel="stylesheet" href="/static/css/geoloc.css" />
+	<!-- Feuille de style de Leaflet (bibliothèque de cartographie) -->
+	<link
+		rel="stylesheet"
+		href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		crossorigin="anonymous"
+	/>
+</head>
+<body>
+	<!-- En-tête du site avec titre, recherche et navigation principale -->
+	<header class="site-header">
+		<!-- Conteneur du contenu d'en-tête pour alignement et spacing -->
+		<div class="header-content">
+			<!-- Nom du site (branding) visible en haut -->
+			<h1>Groupie Tracker</h1>
+			<!-- Formulaire de recherche rapide orienté vers la page /search.html -->
+			<form class="header-search-form" action="/search.html" method="get">
+				<!-- Champ de recherche, avec libellé ARIA pour accessibilité -->
+				<input type="search" name="q" placeholder="Rechercher un artiste..." aria-label="Recherche" class="header-search-input">
+				<!-- Bouton de soumission stylisé -->
+				<button type="submit" class="btn header-search-btn">Recherche</button>
+			</form>
+			<!-- Navigation principale du site (liens clés) -->
+			<nav class="main-nav" id="mainNav">
+				<!-- Lien vers la page d'accueil -->
+				<a href="/">Accueil</a>
+				<!-- Lien vers la page de géolocalisation (courante) -->
+				<a href="/geoloc.html">Géolocalisation</a>
+			</nav>
+			<!-- Bouton pour ouvrir la modale d'abonnement -->
+			<button class="btn btn-subscribe" id="subscribeBtn">S'abonner</button>
+		</div>
+	</header>
+
+	<!-- Contenu principal de la page -->
+	<main class="container">
+		<!-- Titre et sous-titre de la page -->
+		<section class="page-title">
+			<!-- Titre de section indiquant la fonctionnalité -->
+			<h2>Géolocalisation des Groupes</h2>
+			<!-- Description courte de la carte et des informations affichées -->
+			<p>Carte interactive des lieux de concerts avec les artistes et dates associées</p>
+		</section>
+
+		<!-- Section principale qui contient la carte et le statut -->
+		<section>
+			<!-- Conteneur de la carte Leaflet; l'élément sera remplacé par la carte -->
+			<div id="map" aria-label="Carte des concerts"></div>
+			<!-- Zone de statut, mise à jour dynamiquement (aria-live pour lecteurs d'écran) -->
+			<div id="geo-status" class="geo-status" aria-live="polite">Chargement des données…</div>
+		</section>
+	</main>
+
+	<!-- Pied de page du site avec informations et liens utiles -->
+	<footer class="site-footer">
+		<!-- Conteneur pour limiter la largeur et aligner le contenu -->
+		<div class="container footer-content">
+			<!-- Informations de copyright et attribution du projet -->
+			<div class="footer-info">
+				<p>&copy; 2026 Groupie Tracker — Projet fait par Preston, Clément et Timéo</p>
+			</div>
+			<!-- Liens complémentaires de navigation rapide -->
+			<div class="footer-links">
+				<a href="/search.html">Rechercher</a>
+				<a href="/geoloc.html">Géolocalisation</a>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Scripts de la bibliothèque Leaflet nécessaires à l'affichage de la carte -->
+	<script
+		src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		crossorigin="anonymous"
+	></script>
+	<!-- Script UI global (navigation, modales, helpers) -->
+	<script src="/static/js/ui.js"></script>
+	<!-- Script spécifique à la page de géolocalisation (chargement carte et données) -->
+	<script src="/static/js/geoloc.js"></script>
+</body>
+</html>
+

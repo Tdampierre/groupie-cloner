@@ -1,0 +1,83 @@
+<!-- Page Recherche: formulaire, filtres rapides, résultats -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Recherche d'artistes — Groupie Tracker</title>
+	<meta name="description" content="Recherchez et trouvez vos artistes préférés sur Groupie Tracker.">
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/search.css">
+	<!-- Éviter l'indexation par les moteurs (démo) -->
+	<meta name="robots" content="noindex">
+</head>
+<body>
+    <!-- En-tête avec barre de recherche + nav principale -->
+	<header class="site-header">
+		<div class="header-content">
+			<h1>Groupie Tracker</h1>
+			<form class="header-search-form" action="/search.html" method="get">
+				<input type="search" name="q" placeholder="Rechercher un artiste..." aria-label="Recherche" class="header-search-input">
+				<button type="submit" class="btn header-search-btn">Recherche</button>
+			</form>
+			<nav class="main-nav" id="mainNav">
+				<a href="/">Accueil</a>
+				<a href="/geoloc.html">Géolocalisation</a>
+			</nav>
+			<button class="btn btn-subscribe" id="subscribeBtn">S'abonner</button>
+		</div>
+	</header>
+
+    <!-- Conteneur principal de la page -->
+	<main class="container">
+		<section class="page-title">
+			<h2>Recherche d'artistes</h2>
+			<p>Trouvez vos groupes préférés et découvrez leurs dates de concerts</p>
+		</section>
+
+        <!-- Formulaire de recherche avec suggestions dynamiques -->
+		<form id="searchForm" class="search-form">
+			<label for="query">Nom de l'artiste :</label>
+			<div class="input-stack">
+				<input type="text" id="query" name="q" placeholder="Entrez un nom d'artiste" required aria-label="Nom de l'artiste" autocomplete="off">
+				<div id="suggestions" class="suggestions" role="listbox" aria-label="Suggestions"></div>
+			</div>
+			<div class="quick-filters" id="quickFilters" aria-label="Filtres rapides">
+				<button type="button" class="chip" data-filter="rock">Rock</button>
+				<button type="button" class="chip" data-filter="seventies">Années 70</button>
+				<button type="button" class="chip" data-filter="usa">USA</button>
+				<button type="button" class="chip" data-filter="month">Concerts ce mois-ci</button>
+			</div>
+			<div class="actions">
+				<button type="submit" class="btn-primary">Rechercher</button>
+				<button type="button" id="clearSearch" class="btn-ghost">Effacer</button>
+			</div>
+		</form>
+
+        <!-- Zone de résultats mise à jour dynamiquement -->
+		<section id="results" class="results" aria-live="polite">
+			<p>Entrez un nom ou utilisez un filtre pour voir les résultats.</p>
+		</section>
+	</main>
+
+    <!-- Pied de page du site -->
+	<footer class="site-footer">
+		<div class="container footer-content">
+			<div class="footer-info">
+				<p>&copy; 2026 Groupie Tracker — Projet fait par Preston, Clément et Timéo</p>
+			</div>
+			<div class="footer-links">
+				<a href="/search.html">Rechercher</a>
+				<a href="/geoloc.html">Géolocalisation</a>
+			</div>
+		</div>
+	</footer>
+
+    <!-- Scripts UI communs + logique de recherche -->
+	<script src="/static/js/ui.js"></script>
+	<script src="/static/js/search.js"></script>
+</body>
+</html>
+

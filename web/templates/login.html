@@ -1,0 +1,214 @@
+<!-- Page d'authentification: Connexion / Inscription -->
+<!DOCTYPE html>
+<!-- Document HTML en français -->
+<html lang="fr">
+<head>
+    <!-- Encodage des caractères en UTF-8 -->
+    <meta charset="utf-8" />
+    <!-- Mise en page responsive pour mobiles et desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Titre de la page pour l'onglet navigateur -->
+    <title>Connexion / Inscription - Groupie Tracker</title>
+    <!-- Polices web pour le style global -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <!-- En-tête du site avec navigation -->
+    <header class="site-header">
+        <!-- Contenu d'en-tête: branding et actions -->
+        <div class="header-content">
+            <!-- Titre du site -->
+            <h1>Groupie Tracker</h1>
+            <!-- Navigation principale -->
+            <nav class="main-nav" id="mainNav">
+                <a href="/">Accueil</a>
+                <a href="/geoloc.html">Géolocalisation</a>
+            </nav>
+            <!-- Actions d'en-tête (auth et abonnement) -->
+            <div class="header-actions">
+                <a class="btn btn-auth" href="/login">Connexion / Inscription</a>
+                <button class="btn btn-subscribe" id="subscribeBtn">S'abonner</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal: container centré pour les formulaires -->
+    <main class="container auth-container">
+        <!-- En-tête visuelle de la section auth -->
+        <section class="auth-hero">
+            <div>
+                <p class="auth-kicker">Bienvenue</p>
+                <h2>Crée ton compte ou connecte-toi</h2>
+                <p class="muted">Retrouve tes groupes favoris, enregistre tes filtres et reçois des alertes personnalisées.</p>
+            </div>
+        </section>
+
+        <!-- Carte d'authentification avec onglets Connexion/Inscription -->
+        <section class="auth-card" aria-labelledby="authTabs">
+            <!-- Onglets pour basculer entre les formulaires -->
+            <div class="auth-tabs" id="authTabs">
+                <button class="auth-tab active" data-target="login">Connexion</button>
+                <button class="auth-tab" data-target="register">Inscription</button>
+            </div>
+
+            <!-- Formulaire de connexion -->
+            <form id="loginForm" class="auth-form" autocomplete="on">
+                <!-- Champ ID utilisateur numérique requis -->
+                <label class="form-field">
+                    <span>ID utilisateur</span>
+                    <input type="number" name="id_utilisateur" required placeholder="123" />
+                </label>
+                <!-- Champ mot de passe sécurisé -->
+                <label class="form-field">
+                    <span>Mot de passe</span>
+                    <input type="password" name="password" required placeholder="••••••••" />
+                </label>
+                <!-- Options supplémentaires: souvenir et lien d'oubli -->
+                <div class="form-extra">
+                    <label class="remember">
+                        <input type="checkbox" name="remember" />
+                        <span>Se souvenir de moi</span>
+                    </label>
+                    <a href="#" class="muted">Mot de passe oublié ?</a>
+                </div>
+                <!-- Bouton de soumission -->
+                <button type="submit" class="btn btn-primary auth-submit">Se connecter</button>
+            </form>
+
+            <!-- Formulaire d'inscription -->
+            <form id="registerForm" class="auth-form hidden" autocomplete="on">
+                <!-- Grille pour nom et prénom -->
+                <div class="form-grid">
+                    <label class="form-field">
+                        <span>Nom</span>
+                        <input type="text" name="nom" required placeholder="Dupont" />
+                    </label>
+                    <label class="form-field">
+                        <span>Prénom</span>
+                        <input type="text" name="prenom" required placeholder="Marie" />
+                    </label>
+                </div>
+                <!-- Champ mot de passe -->
+                <label class="form-field">
+                    <span>Mot de passe</span>
+                    <input type="password" name="password" required placeholder="Choisissez un mot de passe" />
+                </label>
+                <!-- Sélecteur de sexe -->
+                <label class="form-field">
+                    <span>Sexe</span>
+                    <select name="sexe" required>
+                        <option value="">Sélectionner</option>
+                        <option value="F">Femme</option>
+                        <option value="M">Homme</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </label>
+                <!-- Bouton de soumission -->
+                <button type="submit" class="btn btn-primary auth-submit">Créer mon compte</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Pied de page: infos et liens -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <p>&copy; 2026 Groupie Tracker — Projet fait par Preston, Clément, Rayane et Timéo</p>
+            </div>
+            <div class="footer-links">
+                <a href="/search">Rechercher</a>
+                <a href="/geoloc.html">Géolocalisation</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts globaux et spécifiques -->
+    <script src="/static/js/ui.js?v=20260102"></script>
+    <script src="/static/js/subscription.js"></script>
+    <script>
+        // Gestion des onglets Connexion / Inscription
+        const tabs = document.querySelectorAll('.auth-tab'); // Sélecteur d'onglets
+        const forms = { // Références aux formulaires
+            login: document.getElementById('loginForm'),
+            register: document.getElementById('registerForm')
+        };
+
+        // Écoute de clic sur chaque onglet pour basculer l'actif et le formulaire visible
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active')); // Retire l'état actif des autres onglets
+                tab.classList.add('active'); // Active l'onglet courant
+                const target = tab.dataset.target; // Récupère la cible (login/register)
+                Object.keys(forms).forEach(key => {
+                    forms[key].classList.toggle('hidden', key !== target); // Affiche/masque les formulaires
+                });
+            });
+        });
+
+        // Affiche un message toast (succès ou erreur)
+        const showMessage = (text, isError = false) => {
+            const toast = document.createElement('div'); // Élément toast
+            toast.className = 'auth-toast'; // Classe de style
+            if (isError) toast.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)'; // Couleur erreur
+            toast.textContent = text; // Texte du message
+            document.body.appendChild(toast); // Ajoute au DOM
+            setTimeout(() => toast.classList.add('show'), 10); // Animation d'apparition
+            setTimeout(() => { // Disparition après délai
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300); // Retrait du DOM
+            }, 2600);
+        };
+
+        // Envoi de requêtes POST JSON aux endpoints d'API
+        const postJSON = async (url, data) => {
+            const res = await fetch(url, {
+                method: 'POST', // Méthode HTTP
+                headers: { 'Content-Type': 'application/json' }, // Type de contenu JSON
+                body: JSON.stringify(data) // Corps de la requête
+            });
+            const body = await res.json().catch(() => ({})); // Tentative de parse JSON
+            if (!res.ok) { // Gestion des erreurs HTTP
+                const msg = body.error || 'Erreur serveur';
+                throw new Error(msg);
+            }
+            return body; // Retourne la réponse JSON
+        };
+
+        // Soumission du formulaire de connexion
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Empêche le rechargement de page
+            const form = e.target; // Référence au formulaire
+            const payload = { // Données à envoyer
+                id_utilisateur: parseInt(form.id_utilisateur.value, 10),
+                password: form.password.value
+            };
+            try {
+                await postJSON('/api/login', payload); // Appel API login
+                showMessage('Connexion réussie'); // Feedback succès
+            } catch (err) {
+                showMessage(err.message, true); // Feedback erreur
+            }
+        });
+
+        // Soumission du formulaire d'inscription
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Empêche le rechargement
+            const form = e.target; // Référence au formulaire
+            const payload = { // Données d'inscription
+                nom: form.nom.value,
+                prenom: form.prenom.value,
+                password: form.password.value,
+                sexe: form.sexe.value
+            };
+            try {
+                const res = await postJSON('/api/register', payload); // Appel API register
+                showMessage(`Compte créé. Votre ID: ${res.id_utilisateur}`); // Affiche l'ID retourné
+                form.reset(); // Réinitialise le formulaire
+            } catch (err) {
+                showMessage(err.message, true); // Affiche l'erreur
+            }
+        });
+    </script>
+</body>
+</html>

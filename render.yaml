@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: groupie-tracker
+    runtime: go
+    runtimeVersion: "1.22"
+    buildCommand: go build -o server main.go database.go auth.go routes.go
+    startCommand: ./server
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DISABLE_DB
+        value: 1
