@@ -10,6 +10,19 @@ import (
 	"groupiepersso/internal/handlers"
 )
 
+func securityHeaders(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("X-Frame-Options", "DENY")
+		w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'")
+		w.Header().Set("Referrer-Policy", "no-referrer")
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	handlers.DB, _ = database.InitDB()
 	handlers.SetupStaticRoutes(filepath.Join("web", "static"))
@@ -25,5 +38,6 @@ func main() {
 		port = "8080"
 	}
 	log.Printf("Starting server on :%s — open http://localhost:%s/", port, port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	handler := securityHeaders(http.DefaultServeMux)
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
